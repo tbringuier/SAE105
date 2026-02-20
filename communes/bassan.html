@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Antennes à Bassan</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+    <header>
+        <h1>Antennes à Bassan</h1>
+        <a href="../index.html">Retour à l'accueil</a>
+    </header>
+    <h2>Bassan</h2>
+    <p>Hérault, Occitanie</p>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Antenne</th>
+                    <th>Opérateur</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>2G</th>
+                    <th>3G</th>
+                    <th>4G</th>
+                    <th>5G</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr>
+                <td>0342700285</td>
+                <td>SFR</td>
+                <td>43,41518</td>
+                <td>3,24829</td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+            </tr>
+        
+            <tr>
+                <td>0342750483</td>
+                <td>Bouygues Telecom</td>
+                <td>43,41518</td>
+                <td>3,24829</td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+            </tr>
+        
+            <tr>
+                <td>0340990102</td>
+                <td>Free Mobile</td>
+                <td>43,41519</td>
+                <td>3,24828</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+            </tr>
+        
+            <tr>
+                <td>0342290539</td>
+                <td>Orange</td>
+                <td>43,415</td>
+                <td>3,24833</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+            </tr>
+        
+            </tbody>
+        </table>
+        <div id="map"></div>
+    </main>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="../js/colors.js"></script>
+        <script>
+        var antennes = [
+    {
+        "lat": 43.41525862274732,
+        "lon": 3.248440735907193,
+        "operator": "SFR",
+        "popup": "<b>Op\u00e9rateur:</b> SFR<br><b>ID Antenne:</b> 0342700285<br><b>2G:</b> Oui<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Oui"
+    },
+    {
+        "lat": 43.415076323320385,
+        "lon": 3.247965965618668,
+        "operator": "Bouygues Telecom",
+        "popup": "<b>Op\u00e9rateur:</b> Bouygues Telecom<br><b>ID Antenne:</b> 0342750483<br><b>2G:</b> Oui<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Oui"
+    },
+    {
+        "lat": 43.4156443977386,
+        "lon": 3.248717428960655,
+        "operator": "Free Mobile",
+        "popup": "<b>Op\u00e9rateur:</b> Free Mobile<br><b>ID Antenne:</b> 0340990102<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Oui"
+    },
+    {
+        "lat": 43.414741260192976,
+        "lon": 3.2488279518872205,
+        "operator": "Orange",
+        "popup": "<b>Op\u00e9rateur:</b> Orange<br><b>ID Antenne:</b> 0342290539<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Oui"
+    }
+];
+
+        var map = L.map('map').setView([43.41525862274732, 3.248440735907193], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        antennes.forEach(function (antenne) {
+            let icon;
+            if (antenne.operator === "Free Mobile") {
+                icon = redIcon;
+            } else if (antenne.operator === "Orange") {
+                icon = orangeIcon;
+            } else if (antenne.operator === "SFR") {
+                icon = greenIcon;
+            } else if (antenne.operator === "Bouygues Telecom") {
+                icon = blueIcon;
+            } else {
+                icon = L.Icon.Default(); // Une icône par défaut si l'opérateur n'est pas reconnu
+            }
+            L.marker([antenne.lat, antenne.lon], {icon: icon}).addTo(map).bindPopup(antenne.popup);
+        });
+    </script>
+    <footer>
+        Réalisé par Tristan BRINGUIER dans le cadre de la SAE15 (BUT R&T) à l'IUT de Villetaneuse.
+    </footer>
+</body>
+</html>
+    

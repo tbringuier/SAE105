@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Antennes à Criquetot-l'Esneval</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+    <header>
+        <h1>Antennes à Criquetot-l'Esneval</h1>
+        <a href="../index.html">Retour à l'accueil</a>
+    </header>
+    <h2>Criquetot-l'Esneval</h2>
+    <p>Seine-Maritime, Normandie</p>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Antenne</th>
+                    <th>Opérateur</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>2G</th>
+                    <th>3G</th>
+                    <th>4G</th>
+                    <th>5G</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr>
+                <td>0760990191</td>
+                <td>Free Mobile</td>
+                <td>49,65298</td>
+                <td>0,26095</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            <tr>
+                <td>0762700289</td>
+                <td>SFR</td>
+                <td>49,65303</td>
+                <td>0,2614</td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            <tr>
+                <td>0762750799</td>
+                <td>Bouygues Telecom</td>
+                <td>49,65303</td>
+                <td>0,2614</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+            </tr>
+        
+            <tr>
+                <td>0762700609</td>
+                <td>SFR</td>
+                <td>49,65306</td>
+                <td>0,26112</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+            </tr>
+        
+            <tr>
+                <td>0762290125</td>
+                <td>Orange</td>
+                <td>49,65305</td>
+                <td>0,26083</td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            <tr>
+                <td>0762290576</td>
+                <td>Orange</td>
+                <td>49,64111</td>
+                <td>0,27417</td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            </tbody>
+        </table>
+        <div id="map"></div>
+    </main>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="../js/colors.js"></script>
+        <script>
+        var antennes = [
+    {
+        "lat": 49.65326907665982,
+        "lon": 0.26132991850655,
+        "operator": "Free Mobile",
+        "popup": "<b>Op\u00e9rateur:</b> Free Mobile<br><b>ID Antenne:</b> 0760990191<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Non"
+    },
+    {
+        "lat": 49.65343739802672,
+        "lon": 0.26163414512943806,
+        "operator": "SFR",
+        "popup": "<b>Op\u00e9rateur:</b> SFR<br><b>ID Antenne:</b> 0762700289<br><b>2G:</b> Oui<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Non"
+    },
+    {
+        "lat": 49.65261378432167,
+        "lon": 0.2615958345726036,
+        "operator": "Bouygues Telecom",
+        "popup": "<b>Op\u00e9rateur:</b> Bouygues Telecom<br><b>ID Antenne:</b> 0762750799<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Oui"
+    },
+    {
+        "lat": 49.65309180498452,
+        "lon": 0.2614370654978941,
+        "operator": "SFR",
+        "popup": "<b>Op\u00e9rateur:</b> SFR<br><b>ID Antenne:</b> 0762700609<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Oui"
+    },
+    {
+        "lat": 49.65329567681735,
+        "lon": 0.2611236438244253,
+        "operator": "Orange",
+        "popup": "<b>Op\u00e9rateur:</b> Orange<br><b>ID Antenne:</b> 0762290125<br><b>2G:</b> Oui<br><b>3G:</b> Oui<br><b>4G:</b> Non<br><b>5G:</b> Non"
+    },
+    {
+        "lat": 49.64085025380242,
+        "lon": 0.2738360286114055,
+        "operator": "Orange",
+        "popup": "<b>Op\u00e9rateur:</b> Orange<br><b>ID Antenne:</b> 0762290576<br><b>2G:</b> Oui<br><b>3G:</b> Oui<br><b>4G:</b> Oui<br><b>5G:</b> Non"
+    }
+];
+
+        var map = L.map('map').setView([49.65326907665982, 0.26132991850655], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        antennes.forEach(function (antenne) {
+            let icon;
+            if (antenne.operator === "Free Mobile") {
+                icon = redIcon;
+            } else if (antenne.operator === "Orange") {
+                icon = orangeIcon;
+            } else if (antenne.operator === "SFR") {
+                icon = greenIcon;
+            } else if (antenne.operator === "Bouygues Telecom") {
+                icon = blueIcon;
+            } else {
+                icon = L.Icon.Default(); // Une icône par défaut si l'opérateur n'est pas reconnu
+            }
+            L.marker([antenne.lat, antenne.lon], {icon: icon}).addTo(map).bindPopup(antenne.popup);
+        });
+    </script>
+    <footer>
+        Réalisé par Tristan BRINGUIER dans le cadre de la SAE15 (BUT R&T) à l'IUT de Villetaneuse.
+    </footer>
+</body>
+</html>
+    

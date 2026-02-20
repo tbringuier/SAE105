@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Antennes à Campagna-de-Sault</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+    <header>
+        <h1>Antennes à Campagna-de-Sault</h1>
+        <a href="../index.html">Retour à l'accueil</a>
+    </header>
+    <h2>Campagna-de-Sault</h2>
+    <p>Aude, Occitanie</p>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID Antenne</th>
+                    <th>Opérateur</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>2G</th>
+                    <th>3G</th>
+                    <th>4G</th>
+                    <th>5G</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            <tr>
+                <td>0112700241</td>
+                <td>SFR</td>
+                <td>42,75939</td>
+                <td>2,05206</td>
+                <td class="frequence-green"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            <tr>
+                <td>0112290274</td>
+                <td>Orange</td>
+                <td>42,75939</td>
+                <td>2,05206</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            <tr>
+                <td>0112750144</td>
+                <td>Bouygues Telecom</td>
+                <td>42,75939</td>
+                <td>2,05206</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            <tr>
+                <td>0110990230</td>
+                <td>Free Mobile</td>
+                <td>42,75939</td>
+                <td>2,05206</td>
+                <td class="frequence-red"></td>
+                <td class="frequence-green"></td>
+                <td class="frequence-red"></td>
+                <td class="frequence-red"></td>
+            </tr>
+        
+            </tbody>
+        </table>
+        <div id="map"></div>
+    </main>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="../js/colors.js"></script>
+        <script>
+        var antennes = [
+    {
+        "lat": 42.75977216771194,
+        "lon": 2.0518941093537424,
+        "operator": "SFR",
+        "popup": "<b>Op\u00e9rateur:</b> SFR<br><b>ID Antenne:</b> 0112700241<br><b>2G:</b> Oui<br><b>3G:</b> Oui<br><b>4G:</b> Non<br><b>5G:</b> Non"
+    },
+    {
+        "lat": 42.75985215219569,
+        "lon": 2.0520010133963553,
+        "operator": "Orange",
+        "popup": "<b>Op\u00e9rateur:</b> Orange<br><b>ID Antenne:</b> 0112290274<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Non<br><b>5G:</b> Non"
+    },
+    {
+        "lat": 42.75969196106441,
+        "lon": 2.0518284079173577,
+        "operator": "Bouygues Telecom",
+        "popup": "<b>Op\u00e9rateur:</b> Bouygues Telecom<br><b>ID Antenne:</b> 0112750144<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Non<br><b>5G:</b> Non"
+    },
+    {
+        "lat": 42.75894841185104,
+        "lon": 2.052025063416435,
+        "operator": "Free Mobile",
+        "popup": "<b>Op\u00e9rateur:</b> Free Mobile<br><b>ID Antenne:</b> 0110990230<br><b>2G:</b> Non<br><b>3G:</b> Oui<br><b>4G:</b> Non<br><b>5G:</b> Non"
+    }
+];
+
+        var map = L.map('map').setView([42.75977216771194, 2.0518941093537424], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        antennes.forEach(function (antenne) {
+            let icon;
+            if (antenne.operator === "Free Mobile") {
+                icon = redIcon;
+            } else if (antenne.operator === "Orange") {
+                icon = orangeIcon;
+            } else if (antenne.operator === "SFR") {
+                icon = greenIcon;
+            } else if (antenne.operator === "Bouygues Telecom") {
+                icon = blueIcon;
+            } else {
+                icon = L.Icon.Default(); // Une icône par défaut si l'opérateur n'est pas reconnu
+            }
+            L.marker([antenne.lat, antenne.lon], {icon: icon}).addTo(map).bindPopup(antenne.popup);
+        });
+    </script>
+    <footer>
+        Réalisé par Tristan BRINGUIER dans le cadre de la SAE15 (BUT R&T) à l'IUT de Villetaneuse.
+    </footer>
+</body>
+</html>
+    
